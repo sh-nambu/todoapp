@@ -34,6 +34,19 @@ const TaskList: React.FC<Props> = ({ tasks, setTasks, filter }) => {
     );
   };
 
+  const handleTitleChange = (id: number, title: string) => {
+    setTasks((tasks) =>
+      tasks.map((task) =>
+        task.id === id
+          ? {
+              ...task,
+              title: title,
+            }
+          : task
+      )
+    );
+  };
+
   const filterdTaskList = tasks.filter((task) => {
     switch (filter) {
       case "all":
@@ -57,6 +70,7 @@ const TaskList: React.FC<Props> = ({ tasks, setTasks, filter }) => {
           task={task}
           handleDone={handleDone}
           handleDelete={handleDelete}
+          handleTitleChange={handleTitleChange}
         />
       ))}
     </ul>

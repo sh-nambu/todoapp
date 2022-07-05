@@ -50,11 +50,26 @@
 }
 
 .task-list li {
-  padding: 20px 10px;
+  padding: 5px 5px;
   border-bottom: 1px solid #c7c9d1;
   display: flex;
   align-items: center;
   position: relative;
+}
+
+.task-list li .input {
+  display: flex;
+  border: none;
+  width: 80%;
+  font-size: 15px;
+  padding: 10px;
+  margin-left: 5px;
+  border-radius: 5px;
+}
+
+.task-list li .input:focus {
+  border: solid 1px #c7c9d1;
+  outline: 0;
 }
 
 .task-list li .btn {
