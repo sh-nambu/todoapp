@@ -8,7 +8,7 @@ type Props = {
   handleTitleChange: (id: number, title: string) => void;
 };
 const TaskItem: React.FC<Props> = ({
-  task: { id, title, done },
+  task: { id, title, done, removed },
   handleDone,
   handleDelete,
   handleTitleChange,
@@ -30,7 +30,7 @@ const TaskItem: React.FC<Props> = ({
         onChange={handleOnChange}
       ></input>
       <button className="btn" onClick={() => handleDelete(id)}>
-        削除
+        {removed ? "復元" : "削除"}
       </button>
     </li>
   );

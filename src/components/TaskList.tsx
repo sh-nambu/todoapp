@@ -27,7 +27,7 @@ const TaskList: React.FC<Props> = ({ tasks, setTasks, filter }) => {
         task.id === id
           ? {
               ...task,
-              removed: true,
+              removed: !task.removed,
             }
           : task
       )
