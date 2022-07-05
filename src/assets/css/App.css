@@ -46,42 +46,48 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top: 1px solid #C7C9D1;
+  border-top: 1px solid #c7c9d1;
 }
 
 .task-list li {
   padding: 20px 10px;
-  border-bottom: 1px solid #C7C9D1;
+  border-bottom: 1px solid #c7c9d1;
   display: flex;
   align-items: center;
   position: relative;
 }
 
 .task-list li .btn {
-    /* display: none; */
-    /* width: 80px; */
-    position: absolute;
-    right: 10px;
-    /* padding: 0.4em 1em; */
-    font-size: 13px;
-    /* z-index: 10; */
+  /* display: none; */
+  /* width: 80px; */
+  position: absolute;
+  right: 10px;
+  /* padding: 0.4em 1em; */
+  font-size: 13px;
+  /* z-index: 10; */
 }
 
 .inputForm {
-  margin-bottom: 40px;
+  margin: 20px 0;
   background: #f9f3ee;
   padding: 30px 20px;
-  border-bottom: 1px solid #C7C9D1;
+  border-bottom: 1px solid #c7c9d1;
 }
 
 .inputForm .input {
   width: 80%;
   font-size: 15px;
   outline: none;
-  border: solid 1px #C7C9D1;
+  border: solid 1px #c7c9d1;
   padding: 10px;
   border-radius: 5px;
   margin-right: 10px;
+}
+
+.dropdown-list {
+  font-size: 15px;
+  margin-bottom: 20px;
+  padding: 5px;
 }
 
 .btn {

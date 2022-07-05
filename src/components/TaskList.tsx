@@ -1,34 +1,57 @@
-import { useEffect, useState } from "react";
 import TaskItem from "./TaskItem";
 import { Task } from "./types/Types";
+import { filterLabel } from "./Filter";
 
 type Props = {
-    tasks: Task[];
-    setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
+  tasks: Task[];
+  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
+  filter: keyof typeof filterLabel;
 };
-const TaskList: React.FC<Props> = ({ tasks, setTasks }) => {
-
-    const handleDone = (id: number) => {
-      setTasks((tasks) =>
-        tasks.map((task) =>
-          task.id === id
-            ? {
-                ...task,
-                done: !task.done,
-              }
-            : task
-        )
-      );
-    };
+const TaskList: React.FC<Props> = ({ tasks, setTasks, filter }) => {
+  const handleDone = (id: number) => {
+    setTasks((tasks) =>
+      tasks.map((task) =>
+        task.id === id
+          ? {
+              ...task,
+              done: !task.done,
+            }
+          : task
+      )
+    );
+  };
 
   const handleDelete = (id: number) => {
-      setTasks((tasks) => tasks.filter((task) => task.id !== id));
-    // setTaskList((taskList) => taskList.filter((task) => task.id !== id));
+    setTasks((tasks) =>
+      tasks.map((task) =>
+        task.id === id
+          ? {
+              ...task,
+              removed: true,
+            }
+          : task
+      )
+    );
   };
+
+  const filterdTaskList = tasks.filter((task) => {
+    switch (filter) {
+      case "all":
+        return !task.removed;
+      case "done":
+        return task.done && !task.removed;
+      case "inProgress":
+        return !task.done && !task.removed;
+      case "removed":
+        return task.removed;
+      default:
+        return true;
+    }
+  });
 
   return (
     <ul className="task-list">
-      {tasks.map((task) => (
+      {filterdTaskList.map((task) => (
         <TaskItem
           key={task.id}
           task={task}
