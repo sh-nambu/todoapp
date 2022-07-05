@@ -1,7 +1,7 @@
 export const filterLabel = {
   all: "すべてのタスク",
-  done: "完了したタスク",
   inProgress: "現在のタスク",
+  done: "完了したタスク",
   removed: "ゴミ箱",
 };
 
@@ -17,8 +17,8 @@ const Filter: React.FC<Props> = ({ setFilter }) => {
     <div>
       <select className="dropdown-list" onChange={handleOnChange}>
         <option value="all">{filterLabel.all}</option>
-        <option value="done">{filterLabel.done}</option>
         <option value="inProgress">{filterLabel.inProgress}</option>
+        <option value="done">{filterLabel.done}</option>
         <option value="removed">{filterLabel.removed}</option>
       </select>
     </div>

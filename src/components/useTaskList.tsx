@@ -17,12 +17,23 @@ export const useTaskList = (initialTaskList: Task[]) => {
     setTaskList([task, ...taskList]);
   };
 
-  const inputEnabled = filterText === "all" || filterText === "inProgress";
+  const handleEmpty = () => {
+    setTaskList(taskList.filter((task) => !task.removed));
+  };
 
   return () => (
     <div className="inner">
-      <TaskInput enabled={inputEnabled} handleAddTask={handleAddTask} />
-      <Filter setFilter={setFilter} />
+      {filterText === "all" || filterText === "inProgress" ? (
+        <TaskInput handleAddTask={handleAddTask} />
+      ) : null}
+      <div className="wrapper">
+        <Filter setFilter={setFilter} />
+        {filterText === "removed" ? (
+          <button className="btn empty" onClick={handleEmpty}>
+            ゴミ箱を空にする
+          </button>
+        ) : null}
+      </div>
       <TaskList tasks={taskList} filter={filterText} setTasks={setTaskList} />
     </div>
   );

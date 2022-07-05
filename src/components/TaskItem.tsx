@@ -20,11 +20,13 @@ const TaskItem: React.FC<Props> = ({
     <li>
       <input
         type="checkbox"
+        disabled={removed}
         checked={done}
         onChange={() => handleDone(id)}
       ></input>
       <input
         className="input"
+        disabled={done || removed}
         type="text"
         value={title}
         onChange={handleOnChange}

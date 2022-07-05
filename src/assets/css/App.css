@@ -42,6 +42,11 @@
   margin: 0 auto;
 }
 
+.wrapper {
+  display:flex;
+  margin: 20px 0;
+}
+
 .task-list {
   list-style: none;
   margin: 0;
@@ -101,8 +106,8 @@
 
 .dropdown-list {
   font-size: 15px;
-  margin-bottom: 20px;
-  padding: 5px;
+  padding: 5px 5px;
+  height:35px
 }
 
 .btn {
@@ -114,4 +119,9 @@
   /* color: #FFF; */
   /* border-radius: 3px;
   outline: none; */
+}
+
+.btn.empty {
+  margin-left: 20px;
+  height: 35px;
 }
