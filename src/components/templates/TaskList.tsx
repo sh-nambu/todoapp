@@ -1,6 +1,6 @@
-import TaskItem from "./TaskItem";
-import { Task } from "./types/Types";
-import { filterLabel } from "./Filter";
+import TaskItem from "../parts/TaskItem";
+import { Task } from "../types/types";
+import { filterLabel } from "../parts/Filter";
 
 type Props = {
   tasks: Task[];

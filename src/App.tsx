@@ -1,6 +1,6 @@
 import "./assets/css/App.css";
-import { Task } from "./components/types/Types";
-import useTaskList from "./components/useTaskList";
+import { Task } from "./components/types/types";
+import Todos from "./components/views/Todos";
 
 const initialTasks: Task[] = [
   {
@@ -18,7 +18,6 @@ const initialTasks: Task[] = [
 ];
 
 function App() {
-  const renderTaskList = useTaskList(initialTasks);
-  return renderTaskList();
+  return <Todos initialTasks={initialTasks} />;
 }
 export default App;

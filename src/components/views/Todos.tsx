@@ -1,11 +1,15 @@
-import { Task } from "./types/Types";
-import TaskList from "./TaskList";
-import TaskInput from "./TaskInput";
-import { useState } from "react";
-import Filter, { filterLabel } from "./Filter";
+import { Task } from "../types/types";
+import TaskList from "../templates/TaskList";
+import TaskInput from "../parts/TaskInput";
+import React, { useState } from "react";
+import Filter, { filterLabel } from "../parts/Filter";
 
-export const useTaskList = (initialTaskList: Task[]) => {
-  const [taskList, setTaskList] = useState(initialTaskList);
+type Props = {
+  initialTasks: Task[];
+};
+
+const Todos: React.FC<Props> = ({ initialTasks }) => {
+  const [taskList, setTaskList] = useState(initialTasks);
   const [filterText, setFilterText] =
     useState<keyof typeof filterLabel>("inProgress");
 
@@ -21,7 +25,7 @@ export const useTaskList = (initialTaskList: Task[]) => {
     setTaskList(taskList.filter((task) => !task.removed));
   };
 
-  return () => (
+  return (
     <div className="inner">
       {filterText === "all" || filterText === "inProgress" ? (
         <TaskInput handleAddTask={handleAddTask} />
@@ -39,4 +43,4 @@ export const useTaskList = (initialTaskList: Task[]) => {
   );
 };
 
-export default useTaskList;
+export default Todos;
