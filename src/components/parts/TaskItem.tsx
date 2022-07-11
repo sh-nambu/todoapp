@@ -1,6 +1,11 @@
 import React from "react";
 import { Task } from "../types/types";
 
+export const removeButtonText = {
+  remove: "削除",
+  restore: "復元",
+};
+
 type Props = {
   task: Task;
   handleDone: (id: number) => void;
@@ -32,7 +37,7 @@ const TaskItem: React.FC<Props> = ({
         onChange={handleOnChange}
       ></input>
       <button className="btn" onClick={() => handleDelete(id)}>
-        {removed ? "復元" : "削除"}
+        {removed ? removeButtonText.restore : removeButtonText.remove}
       </button>
     </li>
   );
