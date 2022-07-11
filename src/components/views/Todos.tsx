@@ -3,13 +3,14 @@ import TaskList from "../templates/TaskList";
 import TaskInput from "../parts/TaskInput";
 import React, { useState } from "react";
 import Filter, { filterLabel } from "../parts/Filter";
+import useTasks from "../../hooks/useTasks";
 
 type Props = {
   initialTasks: Task[];
 };
 
 const Todos: React.FC<Props> = ({ initialTasks }) => {
-  const [taskList, setTaskList] = useState(initialTasks);
+  const [tasks, setTasks] = useTasks(initialTasks);
   const [filterText, setFilterText] =
     useState<keyof typeof filterLabel>("inProgress");
 
@@ -17,28 +18,26 @@ const Todos: React.FC<Props> = ({ initialTasks }) => {
     setFilterText(filter);
   };
 
-  const handleAddTask = (task: Task) => {
-    setTaskList([task, ...taskList]);
-  };
-
-  const handleEmpty = () => {
-    setTaskList(taskList.filter((task) => !task.removed));
-  };
-
   return (
     <div className="inner">
       {filterText === "all" || filterText === "inProgress" ? (
-        <TaskInput handleAddTask={handleAddTask} />
+        <TaskInput handleAddTask={setTasks.add} />
       ) : null}
       <div className="wrapper">
         <Filter setFilter={setFilter} />
         {filterText === "removed" ? (
-          <button className="btn empty" onClick={handleEmpty}>
+          <button className="btn empty" onClick={setTasks.deleteRemoved}>
             ゴミ箱を空にする
           </button>
         ) : null}
       </div>
-      <TaskList tasks={taskList} filter={filterText} setTasks={setTaskList} />
+      <TaskList
+        tasks={tasks}
+        filter={filterText}
+        switchDone={setTasks.switchDone}
+        modifyTitle={setTasks.modifyTitle}
+        switchRemoved={setTasks.switchRemoved}
+      />
     </div>
   );
 };

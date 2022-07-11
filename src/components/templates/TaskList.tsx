@@ -4,49 +4,18 @@ import { filterLabel } from "../parts/Filter";
 
 type Props = {
   tasks: Task[];
-  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
+  switchDone: (id: number) => void;
+  modifyTitle: (id: number, title: string) => void;
+  switchRemoved: (id: number) => void;
   filter: keyof typeof filterLabel;
 };
-const TaskList: React.FC<Props> = ({ tasks, setTasks, filter }) => {
-  const handleDone = (id: number) => {
-    setTasks((tasks) =>
-      tasks.map((task) =>
-        task.id === id
-          ? {
-              ...task,
-              done: !task.done,
-            }
-          : task
-      )
-    );
-  };
-
-  const handleDelete = (id: number) => {
-    setTasks((tasks) =>
-      tasks.map((task) =>
-        task.id === id
-          ? {
-              ...task,
-              removed: !task.removed,
-            }
-          : task
-      )
-    );
-  };
-
-  const handleTitleChange = (id: number, title: string) => {
-    setTasks((tasks) =>
-      tasks.map((task) =>
-        task.id === id
-          ? {
-              ...task,
-              title: title,
-            }
-          : task
-      )
-    );
-  };
-
+const TaskList: React.FC<Props> = ({
+  tasks,
+  filter,
+  switchDone,
+  modifyTitle,
+  switchRemoved,
+}) => {
   const filterdTaskList = tasks.filter((task) => {
     switch (filter) {
       case "all":
@@ -68,9 +37,9 @@ const TaskList: React.FC<Props> = ({ tasks, setTasks, filter }) => {
         <TaskItem
           key={task.id}
           task={task}
-          handleDone={handleDone}
-          handleDelete={handleDelete}
-          handleTitleChange={handleTitleChange}
+          handleDone={switchDone}
+          handleDelete={switchRemoved}
+          handleTitleChange={modifyTitle}
         />
       ))}
     </ul>
