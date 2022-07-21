@@ -5,7 +5,7 @@ import TaskInput from "../components/parts/TaskInput";
 describe("タスク入力コンポーネントのテスト", () => {
   const addTask = jest.fn();
   const setUp = () => {
-    const container = render(<TaskInput handleAddTask={addTask} />);
+    const container = render(<TaskInput onClickAdd={addTask} />);
     const input = container.getByRole("textbox");
     const button = container.getByRole("button");
     return { input, button };

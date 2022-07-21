@@ -21,10 +21,10 @@ const Todos: React.FC<Props> = ({ initialTasks }) => {
   return (
     <div className="inner">
       {filterText === "all" || filterText === "inProgress" ? (
-        <TaskInput handleAddTask={setTasks.add} />
+        <TaskInput onClickAdd={setTasks.add} />
       ) : null}
       <div className="wrapper">
-        <Filter setFilter={setFilter} />
+        <Filter onSelectOption={setFilter} />
         {filterText === "removed" ? (
           <button className="btn empty" onClick={setTasks.deleteRemoved}>
             ゴミ箱を空にする

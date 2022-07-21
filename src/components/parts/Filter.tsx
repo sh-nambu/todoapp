@@ -6,12 +6,12 @@ export const filterLabel = {
 };
 
 type Props = {
-  setFilter: (filter: keyof typeof filterLabel) => void;
+  onSelectOption: (filter: keyof typeof filterLabel) => void;
 };
 
-const Filter: React.FC<Props> = ({ setFilter }) => {
+const Filter: React.FC<Props> = ({ onSelectOption }) => {
   const handleOnChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setFilter(event.target.value as keyof typeof filterLabel);
+    onSelectOption(event.target.value as keyof typeof filterLabel);
   };
   return (
     <div>

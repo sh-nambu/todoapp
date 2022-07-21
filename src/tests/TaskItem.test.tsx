@@ -13,9 +13,9 @@ describe("タスクアイテムコンポーネントのテスト", () => {
     return render(
       <TaskItem
         task={task}
-        handleDone={setTasks.switchDone}
-        handleDelete={setTasks.switchRemoved}
-        handleTitleChange={setTasks.modifyTitle}
+        onChecked={setTasks.switchDone}
+        onClickRemove={setTasks.switchRemoved}
+        onChangeTitle={setTasks.modifyTitle}
       />
     );
   };

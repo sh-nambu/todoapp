@@ -37,9 +37,9 @@ const TaskList: React.FC<Props> = ({
         <TaskItem
           key={task.id}
           task={task}
-          handleDone={switchDone}
-          handleDelete={switchRemoved}
-          handleTitleChange={modifyTitle}
+          onChecked={switchDone}
+          onClickRemove={switchRemoved}
+          onChangeTitle={modifyTitle}
         />
       ))}
     </ul>

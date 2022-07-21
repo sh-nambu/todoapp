@@ -6,7 +6,7 @@ describe("フィルタコンポーネントのテスト", () => {
   test("ドロップダウンリストから項目が選択されたとき、propsで渡されたコールバック関数を呼ぶ", () => {
     // 前準備
     const setFilter = jest.fn();
-    const container = render(<Filter setFilter={setFilter} />);
+    const container = render(<Filter onSelectOption={setFilter} />);
     const options = container.getByRole("combobox");
     const inProgress = container.getByRole("option", {
       name: filterLabel.inProgress,
