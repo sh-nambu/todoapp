@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { filterLabel } from "../components/parts/Filter";
+import { FilterLabel } from "../components/parts/Filter";
 import TaskList from "../components/templates/TaskList";
 
 describe("タスクリストコンポーネントのテスト", () => {
@@ -35,7 +35,7 @@ describe("タスクリストコンポーネントのテスト", () => {
     },
   ];
 
-  const setUp = (filterText: keyof typeof filterLabel) => {
+  const setUp = (filterText: keyof typeof FilterLabel) => {
     render(
       <TaskList
         tasks={tasks}
