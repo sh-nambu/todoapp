@@ -10,7 +10,7 @@ type Props = {
 };
 
 const Todos: React.FC<Props> = ({ initialTasks }) => {
-  const [tasks, setTasks] = useTasks(initialTasks);
+  const { tasks, setTasks } = useTasks(initialTasks);
   const [filterText, setFilterText] =
     useState<keyof typeof FilterLabel>("inProgress");
 

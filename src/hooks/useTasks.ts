@@ -1,18 +1,7 @@
 import { useEffect, useState } from "react";
 import { Task } from "../components/types/types";
 
-const useTasks = (
-  taskList: Task[]
-): [
-  Task[],
-  {
-    switchDone: (id: number) => void;
-    add: (task: Task) => void;
-    modifyTitle: (id: number, title: string) => void;
-    switchRemoved: (id: number) => void;
-    deleteRemoved: () => void;
-  }
-] => {
+const useTasks = (taskList: Task[]) => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
@@ -66,10 +55,10 @@ const useTasks = (
     setTasks((preTasks) => preTasks.filter((task) => !task.removed));
   };
 
-  return [
+  return {
     tasks,
-    { switchDone, add, modifyTitle, switchRemoved, deleteRemoved },
-  ];
+    setTasks: { switchDone, add, modifyTitle, switchRemoved, deleteRemoved },
+  };
 };
 
 export default useTasks;

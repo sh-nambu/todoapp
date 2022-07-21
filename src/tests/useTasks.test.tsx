@@ -20,7 +20,7 @@ describe("useTasksフックのテスト", () => {
 
   const setUp = () => {
     const { result } = renderHook(() => useTasks(initialTasks));
-    const setTasks = result.current[1];
+    const setTasks = result.current.setTasks;
     return { result, setTasks };
   };
 
@@ -28,27 +28,35 @@ describe("useTasksフックのテスト", () => {
     // 前準備
     const { result, setTasks } = setUp();
     // 初期状態のテスト
-    expect(result.current[0].find((task) => task.id === 2)?.done).toBeTruthy();
+    expect(
+      result.current.tasks.find((task) => task.id === 2)?.done
+    ).toBeTruthy();
     act(() => {
       // 完了フラグをtrue→falseにする
       setTasks.switchDone(2);
     });
     // 検証
-    expect(result.current[0].find((task) => task.id === 2)?.done).toBeFalsy();
+    expect(
+      result.current.tasks.find((task) => task.id === 2)?.done
+    ).toBeFalsy();
   });
 
   test("タスクを未完了→完了にする", () => {
     // 前準備
     const { result, setTasks } = setUp();
     // 初期状態のテスト
-    expect(result.current[0].find((task) => task.id === 1)?.done).toBeFalsy();
+    expect(
+      result.current.tasks.find((task) => task.id === 1)?.done
+    ).toBeFalsy();
 
     act(() => {
       // 完了フラグをfalse→trueにする
       setTasks.switchDone(1);
     });
     // 検証
-    expect(result.current[0].find((task) => task.id === 1)?.done).toBeTruthy();
+    expect(
+      result.current.tasks.find((task) => task.id === 1)?.done
+    ).toBeTruthy();
   });
 
   test("タスクを削除済みにする", () => {
@@ -56,7 +64,7 @@ describe("useTasksフックのテスト", () => {
     const { result, setTasks } = setUp();
     // 初期状態のテスト
     expect(
-      result.current[0].find((task) => task.id === 1)?.removed
+      result.current.tasks.find((task) => task.id === 1)?.removed
     ).toBeFalsy();
 
     act(() => {
@@ -65,7 +73,7 @@ describe("useTasksフックのテスト", () => {
     });
     // 検証
     expect(
-      result.current[0].find((task) => task.id === 1)?.removed
+      result.current.tasks.find((task) => task.id === 1)?.removed
     ).toBeTruthy();
   });
 
@@ -74,7 +82,7 @@ describe("useTasksフックのテスト", () => {
     const { result, setTasks } = setUp();
     // 初期状態のテスト
     expect(
-      result.current[0].find((task) => task.id === 2)?.removed
+      result.current.tasks.find((task) => task.id === 2)?.removed
     ).toBeTruthy();
 
     act(() => {
@@ -83,7 +91,7 @@ describe("useTasksフックのテスト", () => {
     });
     // 検証
     expect(
-      result.current[0].find((task) => task.id === 2)?.removed
+      result.current.tasks.find((task) => task.id === 2)?.removed
     ).toBeFalsy();
   });
 
@@ -91,20 +99,22 @@ describe("useTasksフックのテスト", () => {
     // 前準備
     const { result, setTasks } = setUp();
     // 初期状態のテスト
-    expect(result.current[0].find((task) => task.id === 2)).not.toBeUndefined();
+    expect(
+      result.current.tasks.find((task) => task.id === 2)
+    ).not.toBeUndefined();
 
     act(() => {
       setTasks.deleteRemoved();
     });
     // 検証
-    expect(result.current[0].find((task) => task.id === 2)).toBeUndefined();
+    expect(result.current.tasks.find((task) => task.id === 2)).toBeUndefined();
   });
 
   test("タスク名を変更する", () => {
     // 前準備
     const { result, setTasks } = setUp();
     // 初期状態のテスト
-    expect(result.current[0].find((task) => task.id === 1)?.title).toBe(
+    expect(result.current.tasks.find((task) => task.id === 1)?.title).toBe(
       "本を返す"
     );
 
@@ -113,7 +123,7 @@ describe("useTasksフックのテスト", () => {
       setTasks.modifyTitle(1, "本を買う");
     });
     // 検証
-    expect(result.current[0].find((task) => task.id === 1)?.title).toBe(
+    expect(result.current.tasks.find((task) => task.id === 1)?.title).toBe(
       "本を買う"
     );
   });
@@ -121,7 +131,7 @@ describe("useTasksフックのテスト", () => {
   test("タスクを新規登録する", () => {
     // 前準備
     const { result, setTasks } = setUp();
-    const preCount = result.current[0].length;
+    const preCount = result.current.tasks.length;
 
     act(() => {
       // タスクを追加する
@@ -133,6 +143,6 @@ describe("useTasksフックのテスト", () => {
       });
     });
     // 検証
-    expect(result.current[0].length).toBeGreaterThan(preCount);
+    expect(result.current.tasks.length).toBeGreaterThan(preCount);
   });
 });
