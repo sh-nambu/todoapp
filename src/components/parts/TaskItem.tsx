@@ -8,13 +8,13 @@ export const removeButtonText = {
 
 type Props = {
   task: Task;
-  onChecked: (id: number) => void;
+  onChangeDone: (id: number) => void;
   onClickRemove: (id: number) => void;
   onChangeTitle: (id: number, title: string) => void;
 };
 const TaskItem: React.FC<Props> = ({
   task: { id, title, done, removed },
-  onChecked,
+  onChangeDone,
   onClickRemove,
   onChangeTitle,
 }) => {
@@ -27,7 +27,7 @@ const TaskItem: React.FC<Props> = ({
         type="checkbox"
         disabled={removed}
         checked={done}
-        onChange={() => onChecked(id)}
+        onChange={() => onChangeDone(id)}
       ></input>
       <input
         className="input"

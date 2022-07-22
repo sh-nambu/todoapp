@@ -13,7 +13,7 @@ describe("タスクアイテムコンポーネントのテスト", () => {
     return render(
       <TaskItem
         task={task}
-        onChecked={setTasks.switchDone}
+        onChangeDone={setTasks.switchDone}
         onClickRemove={setTasks.switchRemoved}
         onChangeTitle={setTasks.modifyTitle}
       />
