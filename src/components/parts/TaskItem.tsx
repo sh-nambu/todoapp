@@ -24,19 +24,25 @@ const TaskItem: React.FC<Props> = ({
   return (
     <li>
       <input
+        data-testid={`checkbox-${id}`}
         type="checkbox"
         disabled={removed}
         checked={done}
         onChange={() => onChangeDone(id)}
       ></input>
       <input
+        data-testid={`textbox-${id}`}
         className="input"
         disabled={done || removed}
         type="text"
         value={title}
         onChange={handleOnChange}
       ></input>
-      <button className="btn" onClick={() => onClickRemove(id)}>
+      <button
+        data-testid={`button-${id}`}
+        className="btn"
+        onClick={() => onClickRemove(id)}
+      >
         {removed ? removeButtonText.restore : removeButtonText.remove}
       </button>
     </li>
