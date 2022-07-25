@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Task } from "../types/types";
 
 type Props = {
-  handleAddTask: (task: Task) => void;
+  onClickAdd: (task: Task) => void;
 };
-const TaskInput: React.FC<Props> = ({ handleAddTask }) => {
+const TaskInput: React.FC<Props> = ({ onClickAdd }) => {
   const [inputTask, setInputTask] = useState("");
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -13,7 +13,7 @@ const TaskInput: React.FC<Props> = ({ handleAddTask }) => {
 
   const handleOnClick = () => {
     if (inputTask) {
-      handleAddTask({
+      onClickAdd({
         id: new Date().getTime(),
         title: inputTask,
         done: false,

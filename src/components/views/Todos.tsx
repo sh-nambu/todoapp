@@ -2,7 +2,7 @@ import { Task } from "../types/types";
 import TaskList from "../templates/TaskList";
 import TaskInput from "../parts/TaskInput";
 import React, { useState } from "react";
-import Filter, { filterLabel } from "../parts/Filter";
+import Filter, { FilterLabel } from "../parts/Filter";
 import useTasks from "../../hooks/useTasks";
 
 type Props = {
@@ -10,21 +10,21 @@ type Props = {
 };
 
 const Todos: React.FC<Props> = ({ initialTasks }) => {
-  const [tasks, setTasks] = useTasks(initialTasks);
+  const { tasks, setTasks } = useTasks(initialTasks);
   const [filterText, setFilterText] =
-    useState<keyof typeof filterLabel>("inProgress");
+    useState<keyof typeof FilterLabel>("inProgress");
 
-  const setFilter = (filter: keyof typeof filterLabel) => {
+  const setFilter = (filter: keyof typeof FilterLabel) => {
     setFilterText(filter);
   };
 
   return (
     <div className="inner">
       {filterText === "all" || filterText === "inProgress" ? (
-        <TaskInput handleAddTask={setTasks.add} />
+        <TaskInput onClickAdd={setTasks.add} />
       ) : null}
       <div className="wrapper">
-        <Filter setFilter={setFilter} />
+        <Filter onSelectOption={setFilter} />
         {filterText === "removed" ? (
           <button className="btn empty" onClick={setTasks.deleteRemoved}>
             ゴミ箱を空にする

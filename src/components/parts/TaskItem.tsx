@@ -8,18 +8,18 @@ export const removeButtonText = {
 
 type Props = {
   task: Task;
-  handleDone: (id: number) => void;
-  handleDelete: (id: number) => void;
-  handleTitleChange: (id: number, title: string) => void;
+  onChangeDone: (id: number) => void;
+  onClickRemove: (id: number) => void;
+  onChangeTitle: (id: number, title: string) => void;
 };
 const TaskItem: React.FC<Props> = ({
   task: { id, title, done, removed },
-  handleDone,
-  handleDelete,
-  handleTitleChange,
+  onChangeDone,
+  onClickRemove,
+  onChangeTitle,
 }) => {
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    handleTitleChange(id, event.target.value);
+    onChangeTitle(id, event.target.value);
   };
   return (
     <li>
@@ -27,7 +27,7 @@ const TaskItem: React.FC<Props> = ({
         type="checkbox"
         disabled={removed}
         checked={done}
-        onChange={() => handleDone(id)}
+        onChange={() => onChangeDone(id)}
       ></input>
       <input
         className="input"
@@ -36,7 +36,7 @@ const TaskItem: React.FC<Props> = ({
         value={title}
         onChange={handleOnChange}
       ></input>
-      <button className="btn" onClick={() => handleDelete(id)}>
+      <button className="btn" onClick={() => onClickRemove(id)}>
         {removed ? removeButtonText.restore : removeButtonText.remove}
       </button>
     </li>

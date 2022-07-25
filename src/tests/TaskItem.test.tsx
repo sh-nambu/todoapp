@@ -1,5 +1,6 @@
 import TaskItem, { removeButtonText } from "../components/parts/TaskItem";
-import { render, fireEvent, screen } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
+import { Task } from "../components/types/types";
 import userEvent from "@testing-library/user-event";
 
 describe("タスクアイテムコンポーネントのテスト", () => {
@@ -7,6 +8,16 @@ describe("タスクアイテムコンポーネントのテスト", () => {
     switchDone: jest.fn(),
     modifyTitle: jest.fn(),
     switchRemoved: jest.fn(),
+  };
+  const setUp = (task: Task) => {
+    return render(
+      <TaskItem
+        task={task}
+        onChangeDone={setTasks.switchDone}
+        onClickRemove={setTasks.switchRemoved}
+        onChangeTitle={setTasks.modifyTitle}
+      />
+    );
   };
 
   describe("チェックボックスの表示と操作のテスト", () => {
@@ -19,14 +30,7 @@ describe("タスクアイテムコンポーネントのテスト", () => {
         removed: false,
       };
 
-      const checkbox = render(
-        <TaskItem
-          task={task}
-          handleDone={setTasks.switchDone}
-          handleDelete={setTasks.switchRemoved}
-          handleTitleChange={setTasks.modifyTitle}
-        />
-      ).getByRole("checkbox");
+      const checkbox = setUp(task).getByRole("checkbox");
       // 検証
       expect(checkbox).not.toBeChecked();
     });
@@ -40,14 +44,7 @@ describe("タスクアイテムコンポーネントのテスト", () => {
         removed: false,
       };
 
-      const checkbox = render(
-        <TaskItem
-          task={task}
-          handleDone={setTasks.switchDone}
-          handleDelete={setTasks.switchRemoved}
-          handleTitleChange={setTasks.modifyTitle}
-        />
-      ).getByRole("checkbox");
+      const checkbox = setUp(task).getByRole("checkbox");
       // 検証
       expect(checkbox).toBeChecked();
     });
@@ -61,14 +58,7 @@ describe("タスクアイテムコンポーネントのテスト", () => {
         removed: true,
       };
 
-      const checkbox = render(
-        <TaskItem
-          task={task}
-          handleDone={setTasks.switchDone}
-          handleDelete={setTasks.switchRemoved}
-          handleTitleChange={setTasks.modifyTitle}
-        />
-      ).getByRole("checkbox");
+      const checkbox = setUp(task).getByRole("checkbox");
       // 検証
       expect(checkbox).toBeDisabled();
     });
@@ -80,17 +70,9 @@ describe("タスクアイテムコンポーネントのテスト", () => {
         done: false,
         removed: false,
       };
-      const checkbox = render(
-        // 前準備
-        <TaskItem
-          task={task}
-          handleDone={setTasks.switchDone}
-          handleDelete={setTasks.switchRemoved}
-          handleTitleChange={setTasks.modifyTitle}
-        />
-      ).getByRole("checkbox");
+      const checkbox = setUp(task).getByRole("checkbox");
       // ユーザー操作
-      fireEvent.click(checkbox);
+      userEvent.click(checkbox);
       // 検証
       expect(setTasks.switchDone).toHaveBeenCalledWith(task.id);
     });
@@ -105,14 +87,7 @@ describe("タスクアイテムコンポーネントのテスト", () => {
         done: false,
         removed: false,
       };
-      const textbox = render(
-        <TaskItem
-          task={task}
-          handleDone={setTasks.switchDone}
-          handleDelete={setTasks.switchRemoved}
-          handleTitleChange={setTasks.modifyTitle}
-        />
-      ).getByRole("textbox");
+      const textbox = setUp(task).getByRole("textbox");
       // 検証
       expect(textbox).toHaveValue(task.title);
     });
@@ -125,14 +100,7 @@ describe("タスクアイテムコンポーネントのテスト", () => {
         done: true,
         removed: false,
       };
-      const textbox = render(
-        <TaskItem
-          task={task}
-          handleDone={setTasks.switchDone}
-          handleDelete={setTasks.switchRemoved}
-          handleTitleChange={setTasks.modifyTitle}
-        />
-      ).getByRole("textbox");
+      const textbox = setUp(task).getByRole("textbox");
       // 検証
       expect(textbox).toBeDisabled();
     });
@@ -145,14 +113,7 @@ describe("タスクアイテムコンポーネントのテスト", () => {
         done: false,
         removed: true,
       };
-      const textbox = render(
-        <TaskItem
-          task={task}
-          handleDone={setTasks.switchDone}
-          handleDelete={setTasks.switchRemoved}
-          handleTitleChange={setTasks.modifyTitle}
-        />
-      ).getByRole("textbox");
+      const textbox = setUp(task).getByRole("textbox");
       // 検証
       expect(textbox).toBeDisabled();
     });
@@ -165,14 +126,7 @@ describe("タスクアイテムコンポーネントのテスト", () => {
         done: false,
         removed: false,
       };
-      const textbox = render(
-        <TaskItem
-          task={task}
-          handleDone={setTasks.switchDone}
-          handleDelete={setTasks.switchRemoved}
-          handleTitleChange={setTasks.modifyTitle}
-        />
-      ).getByRole("textbox");
+      const textbox = setUp(task).getByRole("textbox");
       // 検証
       expect(textbox).toBeEnabled();
     });
@@ -185,14 +139,7 @@ describe("タスクアイテムコンポーネントのテスト", () => {
         done: false,
         removed: false,
       };
-      const textbox = render(
-        <TaskItem
-          task={task}
-          handleDone={setTasks.switchDone}
-          handleDelete={setTasks.switchRemoved}
-          handleTitleChange={setTasks.modifyTitle}
-        />
-      ).getByRole("textbox");
+      const textbox = setUp(task).getByRole("textbox");
       // ユーザー操作
       fireEvent.change(textbox, { target: { value: "本を買う" } });
       // 検証
@@ -209,14 +156,7 @@ describe("タスクアイテムコンポーネントのテスト", () => {
         done: false,
         removed: false,
       };
-      const button = render(
-        <TaskItem
-          task={task}
-          handleDone={setTasks.switchDone}
-          handleDelete={setTasks.switchRemoved}
-          handleTitleChange={setTasks.modifyTitle}
-        />
-      ).getByRole("button");
+      const button = setUp(task).getByRole("button");
       // 検証
       expect(button.textContent).toBe(removeButtonText.remove);
     });
@@ -229,14 +169,7 @@ describe("タスクアイテムコンポーネントのテスト", () => {
         done: false,
         removed: true,
       };
-      const button = render(
-        <TaskItem
-          task={task}
-          handleDone={setTasks.switchDone}
-          handleDelete={setTasks.switchRemoved}
-          handleTitleChange={setTasks.modifyTitle}
-        />
-      ).getByRole("button");
+      const button = setUp(task).getByRole("button");
       // 検証
       expect(button.textContent).toBe(removeButtonText.restore);
     });
@@ -249,16 +182,9 @@ describe("タスクアイテムコンポーネントのテスト", () => {
         done: false,
         removed: true,
       };
-      const button = render(
-        <TaskItem
-          task={task}
-          handleDone={setTasks.switchDone}
-          handleDelete={setTasks.switchRemoved}
-          handleTitleChange={setTasks.modifyTitle}
-        />
-      ).getByRole("button");
+      const button = setUp(task).getByRole("button");
       // ユーザー操作
-      fireEvent.click(button);
+      userEvent.click(button);
       // 検証
       expect(setTasks.switchRemoved).toHaveBeenCalledWith(task.id);
     });

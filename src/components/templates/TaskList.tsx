@@ -1,13 +1,13 @@
 import TaskItem from "../parts/TaskItem";
 import { Task } from "../types/types";
-import { filterLabel } from "../parts/Filter";
+import { FilterLabel } from "../parts/Filter";
 
 type Props = {
   tasks: Task[];
   switchDone: (id: number) => void;
   modifyTitle: (id: number, title: string) => void;
   switchRemoved: (id: number) => void;
-  filter: keyof typeof filterLabel;
+  filter: keyof typeof FilterLabel;
 };
 const TaskList: React.FC<Props> = ({
   tasks,
@@ -37,9 +37,9 @@ const TaskList: React.FC<Props> = ({
         <TaskItem
           key={task.id}
           task={task}
-          handleDone={switchDone}
-          handleDelete={switchRemoved}
-          handleTitleChange={modifyTitle}
+          onChangeDone={switchDone}
+          onClickRemove={switchRemoved}
+          onChangeTitle={modifyTitle}
         />
       ))}
     </ul>
