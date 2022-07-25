@@ -30,6 +30,7 @@ const TaskInput: React.FC<Props> = ({ onClickAdd }) => {
         className="input"
         value={inputTask}
         onChange={handleOnChange}
+        placeholder="入力してください"
       />
       <button className="btn" onClick={handleOnClick}>
         追加
